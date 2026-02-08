@@ -1,128 +1,213 @@
-# Bookstore API Automation Tests
+# Bookstore API Automation Framework
 
-This project is an **API automation testing framework** for the **Online Bookstore** REST API provided by FakeRestAPI.  
-It was built to meet the requirements of an API automation assessment, focusing on clean structure, reusability, edge case coverage, reporting, Dockerization, and CI/CD integration.
+A **production-grade API automation testing framework** built with **TypeScript + Playwright Test** to validate the Online Bookstore REST API provided by FakeRestAPI.
 
-## Key Features
-- **Language & Framework**: TypeScript + Playwright Test
-- **API Endpoints Tested**: Books API (full coverage) + Authors API (optional extension)
-- **Test Types**: Happy paths + various edge cases (missing fields, invalid values, negative numbers, empty/null bodies, etc.)
-- **Reporting**: Playwright HTML report + Allure report
-- **Code Quality**: ESLint (TypeScript + Playwright rules), Prettier, Husky (pre-commit: format, pre-push: lint)
-- **Containerization**: Docker (tests run automatically in container)
-- **CI/CD**: GitHub Actions (Docker-based pipeline with report artifacts)
+This project was designed as a **clean, scalable, and maintainable API test architecture**, covering:
+
+- Full API coverage
+- Edge case validation
+- Strong code quality standards
+- Reporting & observability
+- Dockerized execution
+- CI/CD integration
+
+> This is not a simple test suite — it is a reusable API testing framework.
+
+---
+
+## Tech Stack
+
+| Area              | Tooling                          |
+|-------------------|----------------------------------|
+| Language          | TypeScript                       |
+| Test Framework    | Playwright Test (API mode)      |
+| Reporting         | Playwright HTML + Allure        |
+| Lint & Format     | ESLint, Prettier, Husky         |
+| Containerization  | Docker                           |
+| CI/CD             | GitHub Actions                   |
+
+---
+
+## What This Project Demonstrates
+
+This framework was intentionally built to demonstrate:
+
+- Proper API test architecture
+- Separation of concerns (models / services / validators / tests)
+- Reusability and readability
+- Edge case & negative scenario thinking
+- Enterprise-level reporting
+- Containerized test execution
+- Automated CI pipeline
+- Code quality enforcement before commit/push
+
+---
 
 ## Project Structure
+
+```
 bookstore-api-tests/
-├── .github/
-│   └── workflows/
-│       └── api-tests.yml
+├── .github/workflows/        # CI pipeline
 ├── src/
 │   ├── features/
-│   │   ├── models/
-│   │   └── services/
-│   │   └── validators/
+│   │   ├── models/           # Request/response typings
+│   │   ├── services/         # API client layer
+│   │   └── validators/       # Response schema validators
 │   └── tests/
-│       ├── books/
-│       └── authors/
-├── .dockerignore
-├── .gitignore
-├── .husky/
-├── .prettierrc
+│       ├── books/            # Books API tests
+│       └── authors/          # Authors API tests (extension)
 ├── Dockerfile
-├── eslint.config.mjs
-├── package.json
-├── package-lock.json
 ├── playwright.config.ts
-├── tsconfig.json
 └── README.md
+```
 
-## Prerequisites
-
-- Node.js ≥ 18
-- Docker (Docker Desktop recommended)
-- Git
-
-## Local Setup
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/your-username/fakerestapi-playwright-typescript-test.git
-   cd fakerestapi-playwright-typescript-test
-   cd bookstore-api-tests
-
-2. **Install dependencies**
-
-   ```bash
-  npm install
-
-3. **Activate Husky hooks (automatic formatting & linting)**
-
-   ```bash
-  npm run prepare
-
-4. **Install Playwright browsers (needed for local runs)**
-
-   ```bash
-  npx playwright install --with-deps chromium
-
-## Running Tests
-**Local commands**
-
-  npm test                    # Run all tests
-  npm run test:books          # Only Books tests
-  npm run test:authors        # Only Authors tests
-  npm run test:ci             # Quiet mode + report generation
-
-**View Reports**
-
-  npm run report:html         # Open Playwright HTML report
-  npm run report:allure       # Generate & open Allure report
-
-**Docker (recommended)**
-
-  # Build the image (first time takes longer)
-    docker build -t bookstore-api-tests:latest .
-
-  # Run tests in container + export reports
-    docker run --rm \
-      -e BASE_URL=https://fakerestapi.azurewebsites.net \
-      -v "$(pwd)/playwright-report:/app/playwright-report" \
-      -v "$(pwd)/allure-results:/app/allure-results" \
-      bookstore-api-tests:latest
-
-  # Run tests in container + export reports
-    npx playwright show-report playwright-report/html
-    npm run report:allure
-
-**Code Quality & Formatting**
-
-  npm run format              # Format code with Prettier
-  npm run lint                # Check linting issues
-  npm run lint:fix            # Auto-fix linting issues
-
-**View Reports**
-
-## CI/CD Pipeline (GitHub Actions)
-
-  - The workflow in .github/workflows/api-tests.yml:
-
-  - Triggers on push / pull request to master or manual dispatch
-  - Builds the Docker image
-  - Runs all tests inside Docker
-  - Uploads Playwright HTML and Allure results as artifacts
-
-  - View pipeline runs and download reports from the Actions tab in the repository.
+---
 
 ## Test Coverage
 
-  - 36 tests written for the Books API
-  - Covers happy paths + extensive edge cases
-  - All tests pass in both local and Docker environments
+### Books API — Full Coverage
+
+- Create Book
+- Get Book(s)
+- Update Book
+- Delete Book
+- Field validations
+- Boundary values
+- Missing fields
+- Invalid types
+- Negative numbers
+- Null / empty payloads
+
+> 36 test cases covering both happy paths and edge scenarios.
+
+### Authors API — Optional Extension
+
+Additional coverage to demonstrate framework scalability.
+
+---
+
+## ⚙️ Setup
+
+### Prerequisites
+
+- Node.js ≥ 18
+- Docker
+- Git
+
+### Installation
+
+```bash
+git clone https://github.com/your-username/fakerestapi-playwright-typescript-test.git
+cd bookstore-api-tests
+npm install
+npm run prepare
+npx playwright install chromium
+```
+
+---
+
+## Running Tests Locally
+
+```bash
+npm test
+npm run test:books
+npm run test:authors
+npm run test:ci
+```
+
+---
+
+## Reports
+
+### Playwright HTML Report
+
+```bash
+npm run report:html
+```
+
+### Allure Report
+
+```bash
+npm run report:allure
+```
+
+---
+
+## Running Tests in Docker (Recommended)
+
+Build image:
+
+```bash
+docker build -t bookstore-api-tests:latest .
+```
+
+Run tests:
+
+```bash
+docker run --rm \
+  -e BASE_URL=https://fakerestapi.azurewebsites.net \
+  -v "$(pwd)/playwright-report:/app/playwright-report" \
+  -v "$(pwd)/allure-results:/app/allure-results" \
+  bookstore-api-tests:latest
+```
+
+View reports:
+
+```bash
+npx playwright show-report playwright-report/html
+npm run report:allure
+```
+
+---
+
+## Code Quality
+
+| Tool      | Purpose                          |
+|-----------|----------------------------------|
+| ESLint    | TypeScript & Playwright rules   |
+| Prettier  | Consistent formatting           |
+| Husky     | Pre-commit format, pre-push lint|
+
+```bash
+npm run format
+npm run lint
+npm run lint:fix
+```
+
+---
+
+## CI/CD Pipeline
+
+GitHub Actions workflow:
+
+- Triggers on push / pull request
+- Builds Docker image
+- Runs tests inside container
+- Publishes Playwright & Allure reports as artifacts
+
+Reports can be downloaded from the **Actions** tab.
+
+---
 
 ## Environment Variables
 
-  - BASE_URL (default: https://fakerestapi.azurewebsites.net)
+| Variable | Default                                      |
+|----------|-----------------------------------------------|
+| BASE_URL | https://fakerestapi.azurewebsites.net        |
 
-Happy testing!
+---
+
+## Why This Project Stands Out
+
+Unlike basic API test projects, this framework emphasizes:
+
+- Maintainability
+- Scalability
+- Clean architecture
+- Test reliability
+- Professional reporting
+- Real-world DevOps practices
+
+---
+
+## Happy Testing
