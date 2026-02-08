@@ -53,9 +53,10 @@ bookstore-api-tests/
 │   │   ├── models/           # Request/response typings
 │   │   ├── services/         # API client layer
 │   │   └── validators/       # Response schema validators
-│   └── tests/
-│       ├── books/            # Books API tests
-│       └── authors/          # Authors API tests (extension)
+│   ├── tests/
+│   |   ├── books/            # Books API tests
+│   |   └── authors/          # Authors API tests
+│   └── utils/                # Helper class
 ├── Dockerfile
 ├── playwright.config.ts
 └── README.md
