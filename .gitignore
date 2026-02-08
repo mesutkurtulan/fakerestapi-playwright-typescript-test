@@ -1,0 +1,37 @@
+# Node.js & dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json  # istersen lock dosyasını da ignore edebilirsin, ama genellikle commit edilir
+
+# Test artifacts & reports
+playwright-report/
+allure-report/
+allure-results/
+test-results/
+
+# Editor / OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary / cache
+.cache/
+tmp/
+dist/
+build/
+
+# Environment secrets
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Husky
+.husky/_
+
+# Playwright traces
+trace-*.zip

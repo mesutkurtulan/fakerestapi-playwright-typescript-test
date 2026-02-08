@@ -1,0 +1,37 @@
+name: API Automation Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t bookstore-api-tests:latest .
+
+      - name: Run tests in Docker
+        run: |
+          docker run --rm \
+            -e BASE_URL=https://fakerestapi.azurewebsites.net \
+            -v "$(pwd)/playwright-report:/app/playwright-report" \
+            -v "$(pwd)/allure-results:/app/allure-results" \
+            bookstore-api-tests:latest
+
+      - name: Upload Playwright & Allure reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            playwright-report/
+            allure-results/
+          retention-days: 14

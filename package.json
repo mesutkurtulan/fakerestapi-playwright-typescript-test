@@ -1,0 +1,44 @@
+{
+  "name": "bookstore-api-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ci": "playwright test --quiet",
+    "test:books": "playwright test src/tests/books",
+    "test:authors": "playwright test src/tests/authors",
+    "test:headed": "playwright test --headed --slow-mo=100",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "report:html": "playwright show-report playwright-report/html",
+    "report:allure": "allure generate allure-results -o allure-report --clean && allure open allure-report",
+    "report": "npm run report:html",
+    "clean": "rm -rf playwright-report allure-report allure-results test-results",
+    "format": "prettier --write 'src/**/*.{js,ts,tsx}'",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "allure-playwright": "^3.4.5",
+    "dotenv": "^17.2.4",
+    "eslint": "^9.39.2",
+    "eslint-plugin-playwright": "^2.5.1",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "type": "commonjs"
+}

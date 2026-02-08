@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+
+    "types": ["node"],
+    "strict": true,
+
+    "outDir": "./dist",
+
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "sourceMap": true,
+    "declaration": false,
+
+    "isolatedModules": true,
+
+    "jsx": "react-jsx"
+  },
+
+  "include": ["src/**/*", "src/tests/**/*", "playwright.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}
