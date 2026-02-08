@@ -1,7 +1,7 @@
 import { APIRequestContext, APIResponse } from '@playwright/test'
 import { Author } from '../models/author'
 
-export class AuthorService {
+export class AuthorsService {
     private request: APIRequestContext
 
     constructor(request: APIRequestContext) {
@@ -44,6 +44,6 @@ export class AuthorService {
     }
 
     async getAuthorsByBookId(bookId: number): Promise<APIResponse> {
-        return this.request.get(`api/v1/Authors/books/${bookId}`)
+        return this.request.get(`api/v1/Authors/authors/books/${bookId}`)
     }
 }

@@ -78,7 +78,7 @@ bookstore-api-tests/
 - Negative numbers
 - Null / empty payloads
 
-> 36 test cases covering both happy paths and edge scenarios.
+> 72 test cases covering both happy paths and edge scenarios.
 
 ### Authors API — Optional Extension
 
