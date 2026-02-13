@@ -40,10 +40,18 @@ jobs:
       - name: Prepare GitHub Pages content
         if: always()
         run: |
+          rm -rf public
           mkdir public
-          cp -r playwright-report/* public/
+
+          echo "Copying Playwright report..."
+          cp -r playwright-report/. public/ || true
+
+          echo "Copying Allure report..."
           mkdir -p public/allure
-          cp -r allure-report/* public/allure/
+          cp -r allure-report/. public/allure/ || true
+
+          echo "Public folder structure:"
+          ls -R public
 
       - name: Deploy reports to GitHub Pages
         if: always()
