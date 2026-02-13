@@ -1,0 +1,1 @@
+[{"values":["linux"],"name":"OS"},{"values":["v20.20.0"],"name":"NODE_VERSION"},{"values":["https://fakerestapi.azurewebsites.net"],"name":"BASE_URL"},{"values":["1.58.2"],"name":"PLAYWRIGHT_VERSION"}]
