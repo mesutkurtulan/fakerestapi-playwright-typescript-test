@@ -15,7 +15,8 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Build Docker image
         run: docker build -t bookstore-api-tests:latest .
@@ -30,27 +31,27 @@ jobs:
 
       - name: Install Allure CLI
         if: always()
-        run: npm install -g allure-commandline --save-dev
+        run: npm install -g allure-commandline
 
       - name: Generate Allure Report
         if: always()
         run: allure generate allure-results --clean -o allure-report
 
-      - name: Deploy Playwright report
+      - name: Prepare GitHub Pages content
         if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
-          force_orphan: true
+        run: |
+          mkdir public
+          cp -r playwright-report/* public/
+          mkdir -p public/allure
+          cp -r allure-report/* public/allure/
 
-      - name: Deploy Allure report to /allure
+      - name: Deploy reports to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
-          destination_dir: allure
+          publish_dir: ./public
+          force_orphan: true
 
       - name: Show report URLs
         if: always()
