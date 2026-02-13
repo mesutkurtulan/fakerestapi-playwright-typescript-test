@@ -17,11 +17,7 @@ export class BooksService {
     }
 
     async createBook(book?: Partial<Book> | null): Promise<APIResponse> {
-        const options: { data?: any } = {}
-
-        if (book !== undefined && book !== null) {
-            options.data = book
-        }
+        const options = book != null ? { data: book } : {}
 
         return this.request.post('/api/v1/Books', options)
     }
@@ -30,11 +26,7 @@ export class BooksService {
         id: number,
         book?: Partial<Book> | null
     ): Promise<APIResponse> {
-        const options: { data?: any } = {}
-
-        if (book !== undefined && book !== null) {
-            options.data = book
-        }
+        const options = book != null ? { data: book } : {}
 
         return this.request.put(`/api/v1/Books/${id}`, options)
     }

@@ -17,12 +17,8 @@ export class AuthorsService {
     }
 
     async createAuthor(author?: Partial<Author> | null): Promise<APIResponse> {
-        const options: { data?: any } = {}
-
-        if (author !== undefined && author !== null) {
-            options.data = author
-        }
-
+        const options = author != null ? { data: author } : {}
+        
         return this.request.post('/api/v1/Authors', options)
     }
 
@@ -30,11 +26,7 @@ export class AuthorsService {
         id: number,
         book?: Partial<Author> | null
     ): Promise<APIResponse> {
-        const options: { data?: any } = {}
-
-        if (book !== undefined && book !== null) {
-            options.data = book
-        }
+        const options = book != null ? { data: book } : {}
 
         return this.request.put(`/api/v1/Authors/${id}`, options)
     }
